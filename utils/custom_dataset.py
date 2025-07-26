@@ -12,20 +12,24 @@ class Custom(Dataset):
         max_segment_samples=327680,
         sample_rate=16000
     ):
-        r"""Instrument classification dataset takes the meta of an audio
-        segment as input, and return the waveform, onset_roll, and targets of
-        the audio segment. Dataset is used by DataLoader.
-        Args:
-            audio_path: str
-            audio_ext: str, e.g. mp3, wav, flac
-            segment_samples: int, how long you want to cut the audio. If set to None, get the full audio
-        """
+        print(f"\n--- Debugging Custom Dataset Init ---")
+        print(f"Received audio_path: {audio_path}") # Debug print
+        print(f"Received audio_ext: {audio_ext}")   # Debug print
+
         audiofolder = pathlib.Path(audio_path)
-        self.audio_name_list = list(audiofolder.glob(f'*.{audio_ext}'))
+        print(f"Pathlib audiofolder object: {audiofolder}") # Debug print
+
+        glob_pattern = f'*.{audio_ext}'
+        print(f"Glob pattern used: {glob_pattern}") # Debug print
+
+        self.audio_name_list = list(audiofolder.glob(glob_pattern))
+
+        print(f"Files found by glob within Custom Dataset: {self.audio_name_list}") # Debug print
+        print(f"Count of files found: {len(self.audio_name_list)}") # Debug print
+        print(f"--- End Debugging Custom Dataset Init ---\n")
 
         self.sample_rate = sample_rate
         self.segment_samples = max_segment_samples
-        
 
     def __len__(self):
         return len(self.audio_name_list)
