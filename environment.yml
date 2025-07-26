@@ -1,0 +1,24 @@
+name: diffroll
+channels:
+  - defaults
+  - conda-forge
+  - pytorch
+dependencies:
+  - python=3.8.10
+  - pip
+  - tqdm=4.64.0
+  - hydra-core=1.2.0
+  - einops=0.4.1
+  - pytorch-lightning=1.6.4
+  - matplotlib=3.5.2
+  - joblib=1.1.0
+  - mido=1.2.10
+  - pydub=0.25.1
+  - scikit-learn=1.1.1
+  - mir_eval=0.7
+  - ffmpeg
+  - pip:
+      - git+https://github.com/KinWaiCheuk/AudioLoader.git
+      - torch==1.11.0
+      - torchvision==0.12.0
+      - torchaudio==0.11.0

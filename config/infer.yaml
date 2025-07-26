@@ -1,11 +1,23 @@
-gpus: 1
-checkpoint_path: './outputs/2022-07-21/21-35-36/diffusion_dim=28-channels=1-huber-MAESTRO/version_1/checkpoints/last.ckpt' # will be ignored in train.py
-shape:
-- 640
-- 88
 
-defaults:
-    - model: Unet
-        
+model:
+  name: SpecUnet 
+
+
+checkpoint_path: /scratch/negishi/kumar809/skum156-DiffRoll/Pretrain_MAESTRO-retrain_Both-k=9.ckpt
+
+
+shape: [128, 16]
+
+
+batch_size: 1
+
+
 trainer:
-    gpus: ${gpus}
+  devices: 1        # Using 1 device (CPU core)
+  accelerator: cpu  # Explicitly set to CPU
+  # *** EDITED: Changed precision to 16 for potential memory saving on CPU ***
+  # BE CAUTIOUS: Precision 16 on CPU might be slower or cause issues if not
+  # specifically optimized for your CPU architecture and PyTorch build.
+  # If it causes errors or makes it slower/still killed, revert to 32.
+  precision: 16e
+

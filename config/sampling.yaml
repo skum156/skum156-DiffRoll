@@ -3,24 +3,34 @@ hop_length: 512
 sequence_length: 327680
 sampling_rate: 16000
 data_root: './dataset'
-checkpoint_path: 'weights/Pretrain_MAESTRO-retrain_MAESTRO-k=9.ckpt' # will be ignored in train.py
+checkpoint_path: '/scratch/negishi/kumar809/skum156-DiffRoll/Pretrain_MAESTRO-retrain_Both-k=9.ckpt'
 
-
-
-        
 dataloader:
     batch_size: 4
-    num_workers: 8
+    num_workers: 0 # <--- CHANGE THIS TO 0
     shuffle: False
     pin_memory: True
-        
+
 task:
-    frame_threshold: 0.8        
-        
+    sampling:
+        type: transcription # Corrected for transcription
+    frame_threshold: 0.8
+    generation_filter: 0.1
+    inpainting_t: null
+    inpainting_f: null
+
 trainer:
-    gpus: ${gpus}
-    
+    accelerator: cpu
+    gpus: 0
+
 defaults:
     - model: ClassifierFreeDiffRoll
-    - task: generation
-    - dataset: Sampling
+
+dataset:
+  name: Custom
+  num_samples: ${dataloader.batch_size}
+  args:
+    audio_path: '/scratch/negishi/kumar809/skum156-DiffRoll/inputs' # Corrected folder path
+    audio_ext: mp3
+    max_segment_samples: 327680
+    # ... any other args ...
