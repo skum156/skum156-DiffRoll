@@ -14,3 +14,5 @@ training:
     mode: 'x_0' # either 'x_0' or epsilon
 sampling:
     type: 'ddpm_x0'
+
+
